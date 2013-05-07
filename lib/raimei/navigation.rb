@@ -253,8 +253,7 @@ module Raimei
     # @attribute [r] backward?
     # @return [Boolean] whether backward page does exist or not
     def backward?
-      return false if first.nil?
-      first > 1
+      ! backward.nil?
     end
     alias backward_page? backward?
     alias back? backward?
