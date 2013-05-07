@@ -173,8 +173,8 @@ module Raimei
     # @param [Integer] page the page number (1 origin)
     # @return [Integer] the offset of the first record on the specified page (0 origin)
     def offset_for_page(page)
-      raise ArgumentError.new("invalid pager condition") if first.nil? || last.nil?
-      raise ArgumentError.new("invalid page number: #{page}") if page < first || page > last
+      raise ArgumentError.new("invalid pager condition") if leading.nil? || trailing.nil?
+      raise ArgumentError.new("invalid page number: #{page}") if page < leading || page > trailing
 
       @entries_per_page * (page - 1)
     end
@@ -182,10 +182,10 @@ module Raimei
     # @param [Integer] page the page number (1 origin)
     # @return [Integer] the number of record entries on the specified page
     def entries_for_page(page)
-      raise ArgumentError.new("invalid pager condition") if first.nil? || last.nil?
-      raise ArgumentError.new("invalid page number: #{page}") if page < first || page > last
+      raise ArgumentError.new("invalid pager condition") if leading.nil? || trailing.nil?
+      raise ArgumentError.new("invalid page number: #{page}") if page < leading || page > trailing
 
-      if page == last
+      if page == trailing
         (@total_entries - 1) % @entries_per_page + 1
       else
         @entries_per_page
