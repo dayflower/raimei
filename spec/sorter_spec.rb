@@ -151,7 +151,113 @@ describe Raimei::Sorter do
             it { expect(@sorter.desc?(:bar)).to be_false }
           end
         end
+
+        describe '#sort_by' do
+          context 'without direction' do
+            context 'with nil' do
+              it do
+                renewed_order = [
+                  [ :foo, :asc  ],
+                  [ :def, :desc ],
+                  [ :xyz, :asc  ],
+                  [ :abc, :desc ],
+                  [ :bar, :asc  ],
+                ]
+
+                expect(@sorter.sort_by(nil).order).to eq renewed_order
+              end
+            end
+
+            context 'with :foo' do
+              it do
+                renewed_order = [
+                  [ :foo, :desc ],
+                  [ :def, :desc ],
+                  [ :xyz, :asc  ],
+                  [ :abc, :desc ],
+                  [ :bar, :asc  ],
+                ]
+
+                expect(@sorter.sort_by(:foo).order).to eq renewed_order
+              end
+            end
+
+            context 'with :bar' do
+              it do
+                renewed_order = [
+                  [ :bar, :asc  ],
+                  [ :foo, :asc  ],
+                  [ :def, :desc ],
+                  [ :xyz, :asc  ],
+                  [ :abc, :desc ],
+                ]
+
+                expect(@sorter.sort_by(:bar).order).to eq renewed_order
+              end
+            end
+
+            context 'with :abc' do
+              it do
+                renewed_order = [
+                  [ :abc, :desc ],
+                  [ :foo, :asc  ],
+                  [ :def, :desc ],
+                  [ :xyz, :asc  ],
+                  [ :bar, :asc  ],
+                ]
+
+                expect(@sorter.sort_by(:abc).order).to eq renewed_order
+              end
+            end
+
+            context 'with :def' do
+              it do
+                renewed_order = [
+                  [ :def, :desc ],
+                  [ :foo, :asc  ],
+                  [ :xyz, :asc  ],
+                  [ :abc, :desc ],
+                  [ :bar, :asc  ],
+                ]
+
+                expect(@sorter.sort_by(:def).order).to eq renewed_order
+              end
+            end
+
+            context 'with :xyz' do
+              it do
+                renewed_order = [
+                  [ :xyz, :asc  ],
+                  [ :foo, :asc  ],
+                  [ :def, :desc ],
+                  [ :abc, :desc ],
+                  [ :bar, :asc  ],
+                ]
+
+                expect(@sorter.sort_by(:xyz).order).to eq renewed_order
+              end
+            end
+
+            context 'with :zzz (unexistent)' do
+              it do
+                renewed_order = [
+                  [ :foo, :asc  ],
+                  [ :def, :desc ],
+                  [ :xyz, :asc  ],
+                  [ :abc, :desc ],
+                  [ :bar, :asc  ],
+                ]
+
+                expect(@sorter.sort_by(:zzz).order).to eq renewed_order
+              end
+            end
+          end
+
+          # TODO #sort_by with direction
+        end
       end
+
+      # TODO #link_for with nil
 
       describe '#link_for without direction' do
         context 'with foo' do
