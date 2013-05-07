@@ -1,0 +1,9 @@
+source 'https://rubygems.org'
+
+gem 'raimei', :github => 'dayflower/raimei'
+
+gem 'sinatra'
+gem 'haml'
+gem 'sequel'
+gem 'sqlite3'
+gem 'forgery'

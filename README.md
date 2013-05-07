@@ -1,39 +1,47 @@
 # Raimei
 
-Rai-mei (雷鳴) is the very tiny pagination library.
+Rai-mei (雷鳴) is a very tiny library for pagination (and sorting columns).
 
 It DOES ...
 
 * Manage pager's page numbers (via {Raimei::Navigation} and {Raimei::Pager})
 * Calculate record offset for specified page (via {Raimei::Pager})
+* Manage sorter's sorting criterions (via {Raimei::Sorter})
 
 It DOES NOT ...
 
 * Render pager
 * Retrieve records from any storage
+* Sort records
 
 This library is independent of ActiveRecord and other ORMs,
 and also does not rely on Rails and other frameworks.
 
 ## Usage
 
+Working examples (with Sinatra and Sequel) available [here](examples/).
+
 ### Terms
 
 In following typical navigation:
 
-`<<< << 5 6 [7] 8 9 >> >>>`
+`<<< << < 5 6 [7] 8 9 > >> >>>`
 
 <dl>
   <dt><tt>&lt;&lt;&lt;</tt></dt>
   <dd>The {Raimei::Navigation#leading #leading} page.  (typically 1)</dd>
   <dt><tt>&lt;&lt;</tt></dt>
   <dd>The {Raimei::Navigation#backward #backward} page.</dd>
+  <dt><tt>&lt;</tt></dt>
+  <dd>The {Raimei::Navigation#previous #previous} page.  (in this example, 6)</dd>
   <dt><tt>5</tt></dt>
   <dd>The {Raimei::Navigation#first #first} visible page on the navigation.</dd>
   <dt><tt>[7]</tt></dt>
   <dd>The {Raimei::Navigation#current #current} page.</dd>
   <dt><tt>9</tt></dt>
   <dd>The {Raimei::Navigation#last #last} visible page on the navigation.</dd>
+  <dt><tt>&gt;</tt></dt>
+  <dd>The {Raimei::Navigation#next #next} page.  (in this example, 8)</dd>
   <dt><tt>&gt;&gt;</tt></dt>
   <dd>The {Raimei::Navigation#forward #forward} page.</dd>
   <dt><tt>&gt;&gt;&gt;</tt></dt>

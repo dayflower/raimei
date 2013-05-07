@@ -1,0 +1,99 @@
+-# -*- coding: utf-8 -*-
+!!!
+%html
+  %head
+    %meta( charset="utf-8" )
+    %title Table example for Raimei pager
+    %link( href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet" )
+    :css
+      body {
+        padding-top: 40px;
+        padding-bottom: 40px;
+      }
+    </style>
+  %body
+    .container
+      .row
+        .search.pull-right
+          %form.form-inline{ :method => 'GET', :action => uri('/'), :autocomplete => 'off' }
+            %label( for='keyword' )
+              Keyword:
+            .input-append
+              %input#keyword{ :type => 'text', :name => 'keyword', :value => params[:keyword] }
+              %button.btn( type="button" )
+                Search
+
+      .summary
+        #{ @pager.top_entry_index_for_current.to_s } - #{ @pager.bottom_entry_index_for_current.to_s }
+        (#{ @pager.total_entries.to_s } entries)
+
+      %table.table.table-striped.table-hover
+        %thead
+          %tr
+            %th
+              %a{ :href => uri_for(:order => @sorter.link_for(:name), :offset => 0) }
+                Name
+                - if @sorter.top_asc?(:name)
+                  -# UP ARROWHEAD (U+2303)
+                  &#x2303;
+                - elsif @sorter.top_desc?(:name)
+                  -# DOWN ARROWHEAD (U+2304)
+                  &#x2304;
+            %th
+              %a{ :href => uri_for(:order => @sorter.link_for(:email), :offset => 0) }
+                E-mail
+                - if @sorter.top_asc?(:email)
+                  &#x2303;
+                - elsif @sorter.top_desc?(:email)
+                  &#x2304;
+            %th
+              %a{ :href => uri_for(:order => @sorter.link_for(:area), :offset => 0) }
+                Area
+                - if @sorter.top_asc?(:area)
+                  &#x2303;
+                - elsif @sorter.top_desc?(:area)
+                  &#x2304;
+        %tbody
+          - @members.each do |member|
+            %tr
+              %td= member[:name]
+              %td= member[:email]
+              %td= member[:area]
+
+      .pagination.pagination-centered
+        %ul
+          - if @pager.leading?
+            %li
+              %a{ :href => uri_for(:offset => @pager.offset_for_page(@pager.leading)) }
+                -# LEFTWARDS ARROW TO BAR (U+21E4)
+                &#x21e4;
+          - if @pager.backward?
+            %li
+              %a{ :href => uri_for(:offset => @pager.offset_for_page(@pager.backward)) }
+                &laquo;
+          - if @pager.previous?
+            %li
+              %a{ :href => uri_for(:offset => @pager.offset_for_page(@pager.previous)) }
+                &lt;
+          - @pager.each do |page|
+            - if page.current?
+              %li.disabled
+                %span
+                  = page.page
+            - else
+              %li
+                %a{ :href => uri_for(:offset => page.offset) }
+                  = page.page
+          - if @pager.next?
+            %li
+              %a{ :href => uri_for(:offset => @pager.offset_for_page(@pager.next)) }
+                &gt;
+          - if @pager.forward?
+            %li
+              %a{ :href => uri_for(:offset => @pager.offset_for_page(@pager.forward)) }
+                &raquo;
+          - if @pager.trailing?
+            %li
+              %a{ :href => uri_for(:offset => @pager.offset_for_page(@pager.trailing)) }
+                -# RIGHTWARDS ARROW TO BAR (U+21E5)
+                &#x21e5;

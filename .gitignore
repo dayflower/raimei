@@ -9,3 +9,8 @@ vendor
 .yardoc
 doc
 *.gem
+
+examples/table/.bundle
+examples/table/.ruby-version
+examples/table/Gemfile.lock
+examples/table/vendor
