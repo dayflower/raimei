@@ -88,7 +88,7 @@ module Raimei
       new_order = []
       consumed  = {}
 
-      orders.split(%r{\s* , \s*}xmo).each do |field|
+      orders.to_s.split(%r{\s* , \s*}xmo).each do |field|
         order = field.gsub!(/-$/, "") ? :desc : :asc
         field.gsub! /\+$/, ""
         field = field.to_sym

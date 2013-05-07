@@ -47,8 +47,15 @@ describe Raimei::Sorter do
 
     context 'initial state' do
       describe '#order' do
+        it { expect(@template.order).to eq @default_order }
+      end
+    end
+
+    context 'sort with nil' do
+      describe '#sort(nil)' do
         it do
-          expect(@template.order).to eq @default_order
+          expect { @sorter = @template.sort(nil) }.not_to raise_error
+          expect(@sorter.order).to eq @default_order
         end
       end
     end
